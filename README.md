@@ -11,3 +11,7 @@ To start write `npm i` to install and then `npm start` to run the game.
 ---
 
 My Highscore is 570. Can you beat it? :)
+
+---
+
+Just to make it clear: This is not an official guide and I am not affiliated with Phaser/Photonstorm in any way or form
