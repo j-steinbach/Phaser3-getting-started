@@ -1,0 +1,40 @@
+{
+    "name": "phaser3-getting-started",
+    "version": "1.0.0",
+    "description": "The 'Making your first Phaser 3 game' with React and TypeScript. Beware, I am a complete noob.",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run serve && npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "serve": "webpack-dev-server --open",
+        "build": "webpack",
+        "watch": "webpack --watch"
+    },
+    "author": "JST",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/react": "^16.9.49",
+        "@types/react-dom": "^16.9.8",
+        "@typescript-eslint/eslint-plugin": "^4.1.1",
+        "@typescript-eslint/parser": "^4.1.1",
+        "css-loader": "^4.2.2",
+        "eslint": "^7.9.0",
+        "eslint-plugin-react": "^7.20.6",
+        "file-loader": "^6.1.0",
+        "html-webpack-plugin": "^4.4.1",
+        "mini-css-extract-plugin": "^0.11.0",
+        "parcel-bundler": "^1.12.4",
+        "source-map-loader": "^1.1.0",
+        "ts-loader": "^8.0.3",
+        "typescript": "^4.0.2",
+        "url-loader": "^4.1.0",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "dependencies": {
+        "phaser": "^3.24.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
+    }
+}
