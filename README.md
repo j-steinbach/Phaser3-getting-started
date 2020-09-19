@@ -15,3 +15,7 @@ My Highscore is 570. Can you beat it? :)
 ---
 
 Just to make it clear: This is not an official guide and I am not affiliated with Phaser/Photonstorm in any way or form
+
+---
+
+Update: Apparently there is also a [video guide](https://www.youtube.com/watch?v=QXxmSbfR2aY) for the aforementioned tutorial. I feel pretty stupid now.
