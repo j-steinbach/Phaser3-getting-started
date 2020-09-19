@@ -196,7 +196,7 @@ class GettingStartedScene extends Phaser.Scene {
 
         s.disableBody(true, true);
         this.score += 10;
-        this.scoreText?.setText("Score: ${this.score}");
+        this.scoreText?.setText(`Score: ${this.score}`); // string interpolation with ``!
 
         // there are no more stars
         if (this.stars?.countActive(true) === 0) {
