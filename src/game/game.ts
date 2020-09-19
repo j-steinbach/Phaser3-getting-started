@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import GettingStartedScene from "./scenes/MainScene";
+import GettingStartedScene from "./scenes/GettingStartedScene";
 
 export const initGame = (_parent: string) => {
     const game = new Phaser.Game(config);
