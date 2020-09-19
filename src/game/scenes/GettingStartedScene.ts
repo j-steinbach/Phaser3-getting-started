@@ -5,7 +5,10 @@ import starSprite from "Assets/star.png";
 import bombSprite from "Assets/bomb.png";
 import dudeSprite from "Assets/dude.png";
 
+// Phaser3 getting started project
 // https://phaser.io/tutorials/making-your-first-phaser-3-game/part1
+// https://www.youtube.com/watch?v=QXxmSbfR2aY
+// https://blog.ourcade.co/posts/2020/make-first-phaser-3-game-modern-javascript-part1/
 
 // global constant keys for loading assets
 const GROUND_KEY: string = "ground";
@@ -198,7 +201,7 @@ class GettingStartedScene extends Phaser.Scene {
         this.score += 10;
         this.scoreText?.setText(`Score: ${this.score}`); // string interpolation with ``!
 
-        // there are no more stars
+        // we collected all stars
         if (this.stars?.countActive(true) === 0) {
             // spawn new stars!
             this.stars.children.iterate((c) => {
