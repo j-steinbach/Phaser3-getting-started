@@ -19,3 +19,5 @@ Just to make it clear: This is not an official guide and I am not affiliated wit
 ---
 
 Update: Apparently there is also a [video guide](https://www.youtube.com/watch?v=QXxmSbfR2aY) for the aforementioned tutorial. I feel pretty stupid now.
+
+Update2: I went, cleaned, commented and refactored my code based on the video guide. Cheers!
