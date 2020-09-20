@@ -4,6 +4,8 @@ import groundSprite from "Assets/platform.png";
 import starSprite from "Assets/star.png";
 import bombSprite from "Assets/bomb.png";
 import dudeSprite from "Assets/dude.png";
+import ScoreLabel from "../ui/ScoreLabel";
+import BombSpawner from "./BombSpawner";
 
 // Phaser3 getting started project
 // https://phaser.io/tutorials/making-your-first-phaser-3-game/part1
@@ -26,10 +28,9 @@ class GettingStartedScene extends Phaser.Scene {
     platforms?: Phaser.Physics.Arcade.StaticGroup;
     player?: Phaser.Physics.Arcade.Sprite;
     stars?: Physics.Arcade.Group;
-    bombs?: Physics.Arcade.Group;
+    bombSpawner?: BombSpawner;
     cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
-    score = 0;
-    scoreText?: GameObjects.Text;
+    scoreLabel?: ScoreLabel;
     gameOver = false;
 
     // construct the scene
@@ -44,22 +45,21 @@ class GettingStartedScene extends Phaser.Scene {
         this.add.image(400, 300, SKY_KEY);
 
         // UI text
+        this.scoreLabel = this.createScoreLabel(32, 32, 0);
+
+        // controls
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.scoreText = this.add.text(32, 32, "score: 0", {
-            fontSize: "32px",
-            fill: "#000",
-        });
 
         // setup game objects
         this.platforms = this.createPlatforms();
         this.player = this.createPlayer();
         this.stars = this.createStars();
-        this.bombs = this.physics.add.group();
+        this.bombSpawner = new BombSpawner(this, BOMB_KEY);
 
         // handle physics
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.stars, this.platforms);
-        this.physics.add.collider(this.bombs, this.platforms);
+        this.physics.add.collider(this.bombSpawner.group, this.platforms);
 
         // handle collision
         // player collects stars
@@ -74,7 +74,7 @@ class GettingStartedScene extends Phaser.Scene {
         // player gets hit by bombs
         this.physics.add.collider(
             this.player as GameObjects.GameObject,
-            this.bombs,
+            this.bombSpawner.group,
             this.handleHitBomb,
             undefined,
             this
@@ -121,6 +121,16 @@ class GettingStartedScene extends Phaser.Scene {
         if (this.cursors.up?.isDown && this.player?.body.touching.down) {
             this.player?.setVelocityY(-330);
         }
+    }
+
+    private createScoreLabel(x: number, y: number, score: number) {
+        const style = {
+            fontSize: "32px",
+            fill: "#000",
+        };
+        const label = new ScoreLabel(this, x, y, score, style);
+        this.add.existing(label);
+        return label;
     }
 
     private createPlatforms() {
@@ -196,11 +206,11 @@ class GettingStartedScene extends Phaser.Scene {
         star: GameObjects.GameObject
     ) {
         const s = star as Physics.Arcade.Image;
-
-        s.disableBody(true, true);
-        this.score += 10;
-        this.scoreText?.setText(`Score: ${this.score}`); // string interpolation with ``!
-
+        // update score
+        if (this.scoreLabel) {
+            s.disableBody(true, true);
+            this.scoreLabel.add(10);
+        }
         // we collected all stars
         if (this.stars?.countActive(true) === 0) {
             // spawn new stars!
@@ -209,21 +219,7 @@ class GettingStartedScene extends Phaser.Scene {
                 child.enableBody(true, child.x, 0, true, true);
             });
             // ...and a deadly bomb
-            this.spawnBomb();
-        }
-    }
-
-    private spawnBomb() {
-        if (this.player) {
-            // decide the side of the screen the bomb should appear.
-            const x =
-                this.player.x < 400
-                    ? Phaser.Math.Between(400, 800)
-                    : Phaser.Math.Between(0, 400);
-            const bomb = this.bombs?.create(x, 16, BOMB_KEY);
-            bomb.setBounce(1);
-            bomb.setCollideWorldBounds(true);
-            bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+            this.bombSpawner?.spawnBombs();
         }
     }
 
